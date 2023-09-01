@@ -1,0 +1,53 @@
+{
+    "10_dispensers": {
+        "ingredients": [
+            {"name": "Vodka", "type": "Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "White rum", "type": "Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Tequila", "type": "Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Triple sec", "type": "Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Lime juice", "type": "Non-Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Tonic water", "type": "Non-Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Cranberry juice", "type": "Non-Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Pineapple juice", "type": "Non-Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Gummy bears", "type": "Solid Garnish", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Crushed ice", "type": "Non-Alcoholic", "image_path": "YOUR_PATH_HERE"}
+        ],
+        "cocktails": [
+            {"name": "Tropical Rum Punch", "ingredients": ["White rum", "Pineapple juice", "Cranberry juice", "Gummy bears"]},
+            {"name": "Simplistic Margarita", "ingredients": ["Tequila", "Lime juice", "Triple sec", "Gummy bears"]},
+            {"name": "Rum & Cran", "ingredients": ["White rum", "Cranberry juice", "Lime wedge"]},
+            {"name": "Vodka Tonic Twist", "ingredients": ["Vodka", "Tonic water", "Lime juice", "Gummy bears"]},
+            {"name": "Tequila Sunrise Simplified", "ingredients": ["Tequila", "Cranberry juice", "Pineapple juice", "Gummy bears"]},
+            {"name": "Tropical Vodka Splash", "ingredients": ["Vodka", "Pineapple juice", "Lime juice", "Gummy bears"]}
+        ]
+    },
+    "15_dispensers": {
+        "ingredients": [
+            {"name": "Vodka", "type": "Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "White rum", "type": "Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Tequila", "type": "Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Gin", "type": "Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Blue Curaçao (alcoholic)", "type": "Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Triple sec", "type": "Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Lime juice", "type": "Non-Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Tonic water", "type": "Non-Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Ginger beer (non-alcoholic)", "type": "Non-Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Cranberry juice", "type": "Non-Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Pineapple juice", "type": "Non-Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Mint syrup or crushed fresh mint", "type": "Non-Alcoholic", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Gummy bears", "type": "Solid Garnish", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Edible glitter", "type": "Garnish", "image_path": "YOUR_PATH_HERE"},
+            {"name": "Crushed ice", "type": "Non-Alcoholic", "image_path": "YOUR_PATH_HERE"}
+        ],
+        "cocktails": [
+            {"name": "Tropical Rum Delight", "ingredients": ["White rum", "Pineapple juice", "Blue Curaçao", "Gummy bears"]},
+            {"name": "Cosmic Tequila Sunrise", "ingredients": ["Tequila", "Orange juice", "Cranberry juice", "Triple sec", "Edible glitter"]},
+            {"name": "Gin Tonic Glitter", "ingredients": ["Gin", "Tonic water", "Lime juice", "Edible glitter"]},
+            {"name": "Berry Vodka Punch", "ingredients": ["Vodka", "Cranberry juice", "Triple sec", "Gummy bears"]},
+            {"name": "Rum Mint Cooler", "ingredients": ["White rum", "Mint syrup or crushed fresh mint", "Pineapple juice", "Ginger beer"]},
+            {"name": "Tequila Bear Pop", "ingredients": ["Tequila", "Blue Curaçao", "Gummy bears"]},
+            {"name": "Gin Ginger Fizz", "ingredients": ["Gin", "Ginger beer", "Lime juice", "Gummy bears"]},
+            {"name": "Pineapple Rum Float", "ingredients": ["White rum", "Pineapple juice", "Gummy bears", "Edible glitter"]}
+        ]
+    }
+}

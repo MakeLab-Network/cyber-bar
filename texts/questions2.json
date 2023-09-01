@@ -1,0 +1,44 @@
+{
+    "questions": [
+        {
+            "question": "If you were reincarnated as a piece of furniture, what would you be?",
+            "answers": ["A sassy sofa always judging people's Netflix choices", "A haunted wardrobe with a thing for socks", "A melodramatic mirror practicing its best 'You Shall Not Pass!'", "An overenthusiastic toaster that jumpscares people at breakfast"]
+        },
+        {
+            "question": "Which of these alternative universe careers sounds appealing?",
+            "answers": ["Professional Unicorn Dentist", "Chief Executive Penguin Dresser", "Space Pirate Radio DJ", "Cactus Hugger Therapy Specialist"]
+        },
+        {
+            "question": "If your life had background music right now, what would it be?",
+            "answers": ["A chicken beatboxing", "Aliens trying to play jazz", "The dramatic dun-dun-DUN from soap operas", "Two goblins arguing over a harmonica"]
+        },
+        {
+            "question": "What's your strategy during a zombie-apocalypse?",
+            "answers": ["Open a zombie-themed café", "Start a conga line and see if they join in", "Become the zombies' fashion consultant", "Host a zombie 'Guess That Brain!' game show"]
+        },
+        {
+            "question": "If vegetables could talk, which one would be super annoying?",
+            "answers": ["Broccoli ranting about 'green power'", "Carrots gossiping about underground dirt drama", "Tomatoes constantly having identity crises: 'Am I a fruit?!'", "Lettuce just won't stop 'leafing' puns everywhere"]
+        },
+        {
+            "question": "Which of these odd superpowers do you secretly want?",
+            "answers": ["The ability to telepathically fill any doughnut with mayonnaise", "Making people break into spontaneous yodeling", "Summoning an orchestra when someone tells a bad joke", "Turning traffic lights green by winking at them (only works half the time)"]
+        },
+        {
+            "question": "You're going undercover in a gang of rogue garden gnomes. What's your alias?",
+            "answers": ["Gnomercy Norm", "Tiny Hat Tony", "Grassblade Gary", "Flowerflank Fiona"]
+        },
+        {
+            "question": "How would you describe your dance style?",
+            "answers": ["Possessed vacuum cleaner", "Flailing inflatable tube man", "Reverse-moonwalking sloth", "Jellybean in a whirlwind"]
+        },
+        {
+            "question": "You're chosen to represent Earth in an Intergalactic Karaoke Championship. Your song choice?",
+            "answers": ["'Bohemian Rhapsody' with extra space opera vibes", "'I Will Survive' but it's about escaping black holes", "'Uptown Funk' in alienese", "Morse code version of 'Stayin Alive'"]
+        },
+        {
+            "question": "Your pet rock is sulking again. What did you do this time?",
+            "answers": ["Forgot its 437th half-birthday", "Took it for granted... literally", "Introduced it to a pebble and asked if they were related", "Mistakenly used its cousin in a game of hopscotch"]
+        }
+    ]
+}
