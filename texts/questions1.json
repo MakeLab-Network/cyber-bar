@@ -1,0 +1,124 @@
+{
+    "questions": [
+        {
+            "question": "How do you like your mornings?",
+            "answers": ["Sunny and energizing", "Slow and relaxing", "Productive and active", "Dark and moody"]
+        },
+        {
+            "question": "Your dream pet is?",
+            "answers": ["A sassy parrot", "An introverted cat", "A playful dog", "A mysterious owl"]
+        },
+        {
+            "question": "What’s your preferred dance move?",
+            "answers": ["The Worm", "The Floss", "The Waltz", "The Robot"]
+        },
+        {
+            "question": "If you were a fruit, you’d be?",
+            "answers": ["A zesty lemon", "A cool cucumber", "A spicy chili", "A sweet pineapple"]
+        },
+        {
+            "question": "Pick a shirt pattern.",
+            "answers": ["Stripes", "Solid", "Plaid", "Polka dots"]
+        },
+        {
+            "question": "Which fictional place would you like to visit?",
+            "answers": ["Hogwarts", "Narnia", "Willy Wonka's Chocolate Factory", "The Shire"]
+        },
+        {
+            "question": "Choose a dessert.",
+            "answers": ["Lemon Tart", "Dark Chocolate", "Ice Cream Sundae", "Tequila-infused cupcakes"]
+        },
+        {
+            "question": "How do you handle stress?",
+            "answers": ["Sip tea", "Hit the gym", "Listen to music", "Take a nap"]
+        },
+        {
+            "question": "Choose a hobby.",
+            "answers": ["Mixology", "Reading", "Gardening", "Robot-building"]
+        },
+        {
+            "question": "Which season matches your mood right now?",
+            "answers": ["Spring", "Winter", "Summer", "Fall"]
+        },
+        {
+            "question": "If you had to be stuck in an era, which one?",
+            "answers": ["Roaring 20s", "Victorian Era", "The 70s", "Ancient Egypt"]
+        },
+        {
+            "question": "Pick an ice cream flavor.",
+            "answers": ["Mint", "Coffee", "Strawberry", "Rum Raisin"]
+        },
+        {
+            "question": "Which city would you teleport to now?",
+            "answers": ["Tokyo", "Paris", "New York", "Cairo"]
+        },
+        {
+            "question": "Your dream vehicle is?",
+            "answers": ["Magic Carpet", "Submarine", "Space Shuttle", "Vintage Convertible"]
+        },
+        {
+            "question": "Pick a vacation destination.",
+            "answers": ["Tropical Island", "Snowy Mountain", "Desert Oasis", "Bustling City"]
+        },
+        {
+            "question": "How do you prefer to travel?",
+            "answers": ["Walking", "Flying", "Sailing", "Driving"]
+        },
+        {
+            "question": "Which type of movie gets your attention?",
+            "answers": ["Rom-com", "Horror", "Action", "Documentary"]
+        },
+        {
+            "question": "Pick an art form.",
+            "answers": ["Music", "Painting", "Sculpture", "Dance"]
+        },
+        {
+            "question": "How do you like your stories?",
+            "answers": ["Short and sweet", "Long and detailed", "Mysterious and puzzling", "Funny and light"]
+        },
+        {
+            "question": "Which element are you drawn to?",
+            "answers": ["Fire", "Water", "Earth", "Air"]
+        },
+        {
+            "question": "Choose a hat.",
+            "answers": ["Top hat", "Beanie", "Sombrero", "Fedora"]
+        },
+        {
+            "question": "If you had a superpower, what would it be?",
+            "answers": ["Flying", "Invisibility", "Time Travel", "Mind Reading"]
+        },
+        {
+            "question": "What’s your spirit insect?",
+            "answers": ["Busy Bee", "Graceful Butterfly", "Mysterious Moth", "Chill Ladybug"]
+        },
+        {
+            "question": "Pick a shoe.",
+            "answers": ["Sneaker", "Boot", "Sandal", "Stiletto"]
+        },
+        {
+            "question": "How do you handle criticism?",
+            "answers": ["Ignore it", "Reflect upon it", "Challenge it", "Laugh at it"]
+        },
+        {
+            "question": "Choose a comfort food.",
+            "answers": ["Spaghetti", "Soup", "Burger", "Tacos"]
+        },
+        {
+            "question": "How would friends describe you at a party?",
+            "answers": ["Life of the party", "The quiet observer", "Always on the dance floor", "Snack table guardian"]
+        },
+        {
+            "question": "Pick an era of music.",
+            "answers": ["Classical", "70’s Disco", "90's Pop", "Indie 2010s"]
+        },
+        {
+            "question": "If you were a teacher, what subject?",
+            "answers": ["Math", "History", "Science", "Literature"]
+        },
+        {
+            "question": "Choose a mythical creature.",
+            "answers": ["Dragon", "Mermaid", "Phoenix", "Unicorn"]
+        }
+    ]
+}
