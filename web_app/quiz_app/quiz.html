@@ -7,33 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway+Dots&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-    <title>Viking Trivia</title>
+    <title>cy-bar</title>
     <!-- Include jQuery library -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            // Attach a click event listener to all buttons with the 'btn' class
-            $('.btn').click(function () {
-                var selectedOption = $(this).text();
-
-                // Send a POST request to your Django server
-                $.ajax({
-                    type: 'POST',
-                    url: '/handle_button_press/', // URL of your Django view
-                    data: { selected_option: selectedOption }, // Data to send to the server
-                    success: function (data) {
-                        // Handle the success response from the server (if needed)
-                        console.log(data.message);
-                    },
-                    error: function (error) {
-                        // Handle any errors (if needed)
-                        console.error(error.responseText);
-                    }
-                });
-            });
-        });
-    </script>
 </head>
 
 <body>
@@ -41,16 +17,16 @@
     <div class="bg-image"></div>
     <div class="container">
         <header>
-            <h1>Viking Trivia</h1>
+            <h1>CYBAR</h1>
         </header>
         <main>
             <div class="question">
                 <h2>Question {{ question['question_number'] }}:</h2>
-                <p class="question-text">{{ question['question_text'] }}</p>
+                <p class="question-text">{{ question['question'] }}</p>
             </div>
 
             <form class="answers" method="POST" action="/handle_button_press/">
-                {% for option in question['options'] %}
+                {% for option in question['answers'] %}
                 <div class="answer">
                     <button class="btn" name="selected_option" value="{{ option }}">{{ option }}</button>
                 </div>
