@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from db_access import Questions as DBQuestions
 from speak import speak
-
+import webbrowser
+import os
 
 app = Flask(__name__, template_folder='quiz_app')
 
@@ -26,4 +27,6 @@ def handle_button_press():
 
 
 if __name__ == '__main__':
-    app.run(host="127.0.0.1", port=8000, debug=True)
+    if not os.environ.get("WERKZEUG_RUN_MAIN"):
+        webbrowser.open_new('http://127.0.0.1:5000/')
+    app.run(host="127.0.0.1", port=5000, debug=True)
