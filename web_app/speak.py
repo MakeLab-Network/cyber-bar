@@ -4,7 +4,7 @@ import playsound
 
 
 def speak(text):
-    tts = gTTS(text=text, lang='fr')
+    tts = gTTS(text=text, lang='iw')
 
     filename = "tmp-text.mp3"
     tts.save(filename)
