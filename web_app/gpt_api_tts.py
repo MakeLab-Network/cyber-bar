@@ -6,7 +6,7 @@ import openai
 import os
 import time
 from gtts import gTTS
-from ..web_app.speak import speak
+from speak import speak
 
 openai.api_key = os.environ.get("openai_key")
 

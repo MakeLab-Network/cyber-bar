@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway+Dots&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>cy-bar</title>
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+    <div class="bg-image"></div>
+    <div class="container">
+        <header>
+            <h1>CYBAR</h1>
+        </header>
+        <main>
+            <div class="question">
+                <h2>Question {{ question['question_number'] }}:</h2>
+                <p class="question-text">{{ question['question'] }}</p>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
