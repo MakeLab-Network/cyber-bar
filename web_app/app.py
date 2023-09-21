@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import Flask, render_template
 from db_access import QuestionsDb
 from gpt_api_tts import ask_gpt4
 
