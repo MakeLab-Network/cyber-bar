@@ -1,1 +1,2 @@
-ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT = r""
+#ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT = r"the user answered the question {} with the answer {} please give a short witty response in hebrew"
+ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT = r"המשתמש ענה על השאלה {} עם התשובה {} בבקשה תן תגובה שנונה וקצרה"
