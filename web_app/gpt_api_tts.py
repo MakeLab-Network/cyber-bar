@@ -46,13 +46,16 @@ def ask_gpt(prompt, model="gpt-3.5-turbo"):
         # print(response_text)
         chunks += response_text
         all_chunks += response_text
-        if '\n' in chunks or '.' in chunks or ',' in chunks or i > 100:
+        if '\n' in chunks or '.' in chunks or i > 100:
             print(chunks)
             play_tts(chunks, end_line=('\n' in chunks))
             # speak(chunks)
             chunks = ""
             i = 0
     play_tts(chunks)
+    while(mixer.music.get_busy()):
+            # print("waiting for last answer...")
+            time.sleep(0.1)
     #speak(chunks)
     # return all_chunks
     # return response_text

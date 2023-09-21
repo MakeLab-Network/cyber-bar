@@ -1,13 +1,13 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from db_access import QuestionsDb
-from gpt_api_tts import ask_gpt4
+from gpt_api_tts import ask_gpt4, ask_gpt
 
 from speak import speak
 import webbrowser
 import os
 import time
 
-from gpt.prompts import ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT
+from gpt.prompts import ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT, get_response_format
 questions_file_path = r"db\questions\questions_hebrew.json"
 
 
@@ -31,15 +31,22 @@ def handle_button_press():
     try:
         # todo: load some intermidiate screen
         global current_question
+        
+        # this doesn't work yet...
         render_template('quiz_between_questions.html', question=current_question)
-        # response = ask_gpt4(ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT.format(current_question["question"], current_question["answers"])) # ask gpt for a response, and read it
+
+        selected_option = request.form.get('selected_option')
+
+        print("you selected: " + selected_option)
+        # response = ask_gpt4(ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT.format(current_question["question"], selected_option)) # ask gpt for a response, and read it
+        response = ask_gpt4(get_response_format().format(current_question["question"], selected_option))
         print(ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT)
-        response = ask_gpt4(ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT) # ask gpt for a response, and read it
+        # response = ask_gpt(ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT) # ask gpt for a response, and read it
         print(response)
-        time.sleep(2)
+        # time.sleep(2) # little sleep for a small buffer after stop speaking
         # todo: show the answer
-        # todo: wait for response answer to finish
         current_question = next(quiz_questions_gen)
+        # time.sleep(0.5) # wait a bit so the screen will show before talking
         speak(current_question["question"])
         return render_template('quiz.html', question=current_question)
     except StopIteration:
