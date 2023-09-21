@@ -1,3 +1,8 @@
-gTTS
+pyttsx3
+gtts
+pygame
+openai
 flask
-playsound
+webbrowser
+flask
+playsound==1.2.2
