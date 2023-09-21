@@ -1,20 +1,25 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
-from db_access import Questions as DBQuestions
+from db_access import QuestionsDb
 from gpt_api_tts import ask_gpt4
+
 from speak import speak
 import webbrowser
 import os
 
 from gpt.prompts import ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT
+questions_file_path = r"db\questions\prod_questions.json"
+
 
 app = Flask(__name__, template_folder='quiz_app')
 
-question_generator = DBQuestions.get_random_questions(20)
+
+questions_db = QuestionsDb(questions_file_path)
+quiz_questions_gen = questions_db.get_random_questions(20)
 
 
 @app.route('/')
 def index():
-    next_question = next(question_generator)
+    next_question = next(quiz_questions_gen)
     speak(next_question["question"])
     return render_template('quiz.html', question=next_question)
 
@@ -28,8 +33,7 @@ def handle_button_press():
         response = ask_gpt4(ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT.format(next_question, answer)) # ask gpt for a response, and read it
         # todo: show the answer
         # todo: wait for response answer to finish
-
-        next_question = next(question_generator)
+        next_question = next(quiz_questions_gen)
         speak(next_question["question"])
         return render_template('quiz.html', question=next_question)
     except StopIteration:

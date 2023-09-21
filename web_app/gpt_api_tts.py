@@ -1,7 +1,3 @@
-#!pip install openai
-#!pip install gtts # (google-text-to-speech)
-#!pip install pygame
-
 import openai
 import os
 import time
@@ -12,6 +8,7 @@ openai.api_key = os.environ.get("openai_key")
 
 
 all_chunks = ""
+
 
 def ask_gpt(prompt, model="gpt-3.5-turbo"):
     messages = [{"role": "user", "content": prompt}]
