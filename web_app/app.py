@@ -15,6 +15,7 @@ import threading
 app = Flask(__name__, template_folder='quiz_app')
 arduino_msg = ""
 last_arduino_msg = ""
+receive_file_path = os.path.join("ardu_srial", "from_arduino.txt")
 
 
 def update_arduino():
@@ -106,11 +107,16 @@ def drink_ready():
 
 
 def pour_drink(dispenser_index, amount):
-    global arduino_msg
     arduino_msg = f"t{dispenser_index} {amount}"
     msg_file_path = "arduino_msg.txt"
     with open(msg_file_path, 'w') as file:
         file.write(arduino_msg)
+    msg_from_arduino = ''
+    while not msg_from_arduino:
+        with open(receive_file_path, 'r') as file:
+            msg_from_arduino = file.read()
+        if msg_from_arduino[0] != "$":
+            msg_from_arduino = ''
 
 
 if __name__ == '__main__':
