@@ -7,9 +7,12 @@ def say(text, block=False):
     tts = gTTS(text=text, lang='iw', slow=False)
 
     filename = "tmp-text.mp3"
-    tts.save(filename)
-    playsound.playsound(filename, block=block)
-    os.remove(filename)
+    try:
+        tts.save(filename)
+        playsound.playsound(filename, block=block)
+        os.remove(filename)
+    except Exception as e:
+        print(f"fucking sound shit: {e}")
 
 
 def minion_sound(sound_name, block=False):

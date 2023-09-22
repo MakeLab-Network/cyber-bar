@@ -1,5 +1,6 @@
+from gpt.prompts import FINAL_PROMPT, USER_Q_AND_A
 from typing import Dict
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from db_access import QuestionsDb
 from gpt_api_tts import ask_gpt4, ask_gpt
 
@@ -9,10 +10,9 @@ import os
 import time
 import random
 import serial
-import threading
 import json
 
-from gpt.prompts import FINAL_PROMPT, USER_Q_AND_A
+using_buttons = True
 recipes_path = r"db\220923-1000 Final cocktails.txt"
 
 app = Flask(__name__, template_folder='quiz_app')
@@ -20,6 +20,7 @@ arduino_msg = ""
 last_arduino_msg = ""
 asked_questions = []
 receive_file_path = "from_arduino.txt"
+buttons_file_path = "buttons_from_arduino.txt"
 drink_index = 1
 
 
@@ -41,59 +42,83 @@ def update_arduino():
 
 questions_file_path = r"db\questions\prod_questions.json"
 
-questions_db = QuestionsDb(questions_file_path)
-quiz_questions_gen = questions_db.get_random_questions(4)
-current_question = dict()
-chosen_drink = -1
-
-
-def init():
-    global questions_db
-    global quiz_question
-    global current_quest
-    global chosen_drink
-
-    questions_db = QuestionsDb(questions_file_path)
-    quiz_questions_gen = questions_db.get_random_questions(2)
-    current_question = dict()
-    chosen_drink = 1
-
 
 @app.route('/')
 def index():
     global questions_db
     global quiz_question
-    global current_quest
+    global current_question
     global chosen_drink
+    global asked_questions
+    global quiz_questions_gen
 
     questions_db = QuestionsDb(questions_file_path)
     quiz_questions_gen = questions_db.get_random_questions(2)
     current_question = dict()
     chosen_drink = 1
+    asked_questions = []
 
+    return render_template('begin-page.html')
+
+
+@app.route('/begin')
+def first_question():
+    # msg_from_arduino = ''
+    read_buttons()
+    global current_question
     current_question = next(quiz_questions_gen)
     speak.say(current_question["question"])
     return render_template('quiz.html', question=current_question)
 
 
-@app.route('/quiz_question/', methods=['POST'])
-def quiz_question():
+def get_file_timestamp(filepath):
+    """Returns the last modified timestamp of a file."""
+    return os.path.getmtime(filepath)
+
+
+def read_file_content(filepath):
+    """Reads the content of a file."""
+    with open(filepath, 'r') as f:
+        return f.read()
+
+
+last_button_timestamp = get_file_timestamp(buttons_file_path)
+
+
+def read_buttons():
+    global last_button_timestamp
+
+    while True:
+        current_timestamp = get_file_timestamp(buttons_file_path)
+        if current_timestamp != last_button_timestamp:
+            print("detected a change in button state")
+            content = read_file_content(buttons_file_path)
+            last_button_timestamp = current_timestamp
+
+            if content:
+                return int(content[0])
+
+
+@app.route('/quiz', methods=['POST', 'GET'])
+def quiz_button_check():
+    global current_question
+    global selected_option_index
+    print('waiting for button')
+
+    selected_option_index = int(read_buttons())
+
+    response = random.choice(
+        current_question["answers"][selected_option_index]["responses"])
+    speak.say(response, block=True)
+
+    asked_questions.append(
+        {
+            "question": current_question['question'],
+            "answer": current_question["answers"][selected_option_index]["answer"]
+        })
     try:
-        global arduino_serial
-        global asked_questions
-        # arduino_serial.open()
-        global current_question
-        selected_option_index = int(request.form.get('selected_option'))
-        try:
-            speak.say(random.choice(
-                current_question["answers"][selected_option_index]["responses"]), block=True)
-            asked_questions.append(
-                {"question": current_question['question'], "answer": current_question["answers"][selected_option_index]["answer"]})
-            print(asked_questions)
-        except KeyError:
-            return redirect('/')
         current_question = next(quiz_questions_gen)
-        speak.say(current_question["question"])
+        speak.say(current_question['question'], block=False)
         return render_template('quiz.html', question=current_question)
     except StopIteration:
         return redirect("/calculate_drink", code=302)
@@ -101,7 +126,7 @@ def quiz_question():
 
 @app.route('/calculate_drink/', methods=['get'])
 def calculate_drink():
-    # speak.minion_sound("minion_speak", block=False)
+    speak.minion_sound("minion_speak", block=False)
     return render_template('proc.html')
 
 
@@ -148,11 +173,12 @@ def drink_ready_mid():
     with open(recipes_path, 'rb') as f:
         recipes = json.load(f)
     # print(recipes['cockt  ails'])
-    recipe = recipes['cocktails'][drink_index - 1]['ingredients']
+    recipe = recipes['cocktails'][drink_index - 1]
     text = ""
-    for ing in recipe:
-        text += ing['name'] + " "
-    return render_template('disp.html', drink_ing=text)
+    for ing in recipe['ingredients']:
+        text += ing['name'] + ", "
+
+    return render_template('disp.html', drink_ing=text[:-1], drink_name=recipe['name'])
 
 
 def parse_final_response(response):
@@ -182,13 +208,15 @@ def make_drink(drink_index):
     # print(recipes['cockt  ails'])
     recipe = recipes['cocktails'][drink_index - 1]
     last_pos = 5
+
     for ing in recipe['ingredients']:
         pos = int(ing['id']-1)
         pour_drink(pos, int(ing['amount']) * 1000)
         distance_to_pos = abs(last_pos - pos)
-        if (pos <= 14):
-            time.sleep((1*distance_to_pos) + 5)
+        if (pos < 14):
+            time.sleep((1*distance_to_pos) + 3)
         last_pos = pos
+    pour_drink(20, 100)  # amazing stuff
 
 
 @app.route('/drink_ready_disp/drink_ready/', methods=['get'])
@@ -198,7 +226,8 @@ def drink_ready():
     speak.minion_sound("tada", block=False)
     # send cmd
     # wait for finish
-    return redirect('/')
+    # return render_template('begin-page.html')
+    return redirect(url_for('index'))
 
 
 def pour_drink(dispenser_index, amount):

@@ -4,6 +4,7 @@ import serial
 
 receive_file_path = "from_arduino.txt"
 transmit_file_path = "to_arduino.txt"
+buttons_file_path = "buttons_from_arduino.txt"
 
 
 def get_file_timestamp(filepath):
@@ -37,22 +38,19 @@ def main():
     try:
         while True:
             current_timestamp = get_file_timestamp(transmit_file_path)
-            print(current_timestamp)
             if current_timestamp != last_timestamp:
-                print(1)
                 content = read_file_content(transmit_file_path)
                 # sends the file content through the serial connection
                 ser.write(content.encode())
                 last_timestamp = current_timestamp
                 print("File changed! Content sent.")
 
-                # while (True):
-                #     from_arduino = ser.readline().decode()
-                #     print(f"from: {from_arduino}")
-                #     if from_arduino:
-                #         if from_arduino[0] == "$":
-                #             write_file_content(receive_file_path, from_arduino)
-                #             break
+            from_arduino = ser.readline().decode()
+            print(f"from: {from_arduino}")
+            if from_arduino:
+                if from_arduino[0] == "@":
+                    write_file_content(buttons_file_path, from_arduino)
+
             time.sleep(1.0)  # sleep for 1 second before checking again
 
     except KeyboardInterrupt:
