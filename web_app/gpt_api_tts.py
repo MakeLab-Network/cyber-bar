@@ -56,12 +56,14 @@ def ask_gpt(prompt, model="gpt-3.5-turbo"):
             chunks = ""
             i = 0
     play_tts(chunks)
-    while(mixer.music.get_busy()):
-            # print("waiting for last answer...")
-            time.sleep(0.1)
-    #speak(chunks)
+    while (mixer.music.get_busy()):
+        # print("waiting for last answer...")
+        time.sleep(0.1)
+    # speak(chunks)
     # return all_chunks
-    # return response_text
+    print("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
+    print(all_chunks)
+    return all_chunks
 
 
 def ask_gpt3(prompt):
@@ -69,4 +71,4 @@ def ask_gpt3(prompt):
 
 
 def ask_gpt4(prompt):
-    ask_gpt(prompt, model="gpt-4")
+    return ask_gpt(prompt, model="gpt-4")

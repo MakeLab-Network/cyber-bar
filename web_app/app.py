@@ -10,11 +10,15 @@ import time
 import random
 import serial
 import threading
-# Define the serial port and baud rate
+import json
+
+from gpt.prompts import FINAL_PROMPT, USER_Q_AND_A
+recipes_path = r"db\recipes.json"
 
 app = Flask(__name__, template_folder='quiz_app')
 arduino_msg = ""
 last_arduino_msg = ""
+asked_questions = []
 
 
 def update_arduino():
@@ -36,7 +40,7 @@ def update_arduino():
 questions_file_path = r"db\questions\prod_questions.json"
 
 questions_db = QuestionsDb(questions_file_path)
-quiz_questions_gen = questions_db.get_random_questions(2)
+quiz_questions_gen = questions_db.get_random_questions(1)
 current_question = dict()
 chosen_drink = -1
 
@@ -53,17 +57,6 @@ def init():
     chosen_drink = -1
 
 
-# @app.context_processor
-# def custom_template_context():
-# def prepare_drink():
-# global chosen_drink_drink
-# gpt_api_tts.choose_drink()
-# chosen_drink =
-
-# Include the custom function in the template context
-# return dict(print_hello=print_hello)
-
-
 @app.route('/')
 def index():
     init()
@@ -77,14 +70,16 @@ def index():
 def quiz_question():
     try:
         global arduino_serial
-
+        global asked_questions
         # arduino_serial.open()
         global current_question
         selected_option_index = int(request.form.get('selected_option'))
 
         speak.say(random.choice(
             current_question["answers"][selected_option_index]["responses"]), block=True)
-
+        asked_questions.append(
+            {"question": current_question['question'], "answer": current_question["answers"][selected_option_index]["answer"]})
+        print(asked_questions)
         current_question = next(quiz_questions_gen)
         speak.say(current_question["question"])
         return render_template('quiz.html', question=current_question)
@@ -95,13 +90,53 @@ def quiz_question():
 @app.route('/calculate_drink/', methods=['get'])
 def calculate_drink():
     speak.minion_sound("minion_speak", block=False)
-    pour_drink(5, 500)
+    making_the_drink()
     return render_template('calc_drink.html')
+
+
+# @app.context_processor
+# def custom_template_context():
+def making_the_drink():
+    drink_index = get_final_drink()
+    print(drink_index)
+    make_drink(drink_index)
+    # return dict(making_the_drink=making_the_drink)
+
+
+def parse_final_response(response):
+    print("\n\nresponse start " + response[:5])
+    index = response.split(r'\n')[0].split('.')[1].lstrip()
+    print(f"index : {index}")
+    if (index[1].isdigit()):
+        return int(index[1] + index[0])
+    else:
+        return int(index[0])
+
+
+def get_final_drink():
+    FULL_Q_AND_A = ""
+    global asked_questions
+    for question in asked_questions:
+        FULL_Q_AND_A += USER_Q_AND_A.format(
+            question['question'], question['answer'])
+    final_prompt = FINAL_PROMPT.format(FULL_Q_AND_A)
+    response = ask_gpt4(final_prompt)
+    return parse_final_response(response)
+
+
+def make_drink(drink_index):
+    with open(recipes_path, 'rb') as f:
+        recipes = json.load(f)
+    recipe = recipes['cocktails'][drink_index]
+    for ing in recipe:
+        pour_drink(ing['id'], ing['amount'])
 
 
 @app.route('/drink_ready/', methods=['get'])
 def drink_ready():
     speak.minion_sound("tada", block=True)
+    # send cmd
+    # wait for finish
     return render_template('calc_drink.html')
 
 
