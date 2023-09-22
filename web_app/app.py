@@ -52,6 +52,9 @@ def handle_button_press():
     except StopIteration:
         return render_template('quiz_end.html')
 
+def pourDrink(dispenser_index):
+    # send command to arduino via serial
+    pass
 
 if __name__ == '__main__':
     if not os.environ.get("WERKZEUG_RUN_MAIN"):

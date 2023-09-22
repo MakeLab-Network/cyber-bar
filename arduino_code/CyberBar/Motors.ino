@@ -2,11 +2,9 @@ void setPWM(int pin, int power)
 {
   power = constrain(power, 0, 4095);
 
-  //  pwm.setPWM(pin, power, 4095 - power); // Go !
-  
-  pwm.setPWM(pin, 0, power); // Go !  (note: 0,4095 is fully on while 0,4096 is fully off... )
+    pwm.setPWM(pin, 0, power); // Go !  (note: 0,4095 is fully on while 0,4096 is fully off... )
   // Read here: https://learn.adafruit.com/16-channel-pwm-servo-driver/library-reference
-  
+
 }
 
 void rightMotor(int power)
@@ -46,7 +44,7 @@ void drive(int powerRightInput, int powerLeftInput)
   /*if (!robotGo) {
     powerRightInput = 0;
     powerLeftInput = 0;
-  }*/
+    }*/
   if (showMotorValues) {
     Serial.print("powerRight: ");
     Serial.print(powerRightInput);
@@ -68,5 +66,6 @@ void setupMotors()
 
 void stopMotors()
 {
-  drive(0, 0);
+  leftMotor(0);
+//  drive(0, 0);
 }

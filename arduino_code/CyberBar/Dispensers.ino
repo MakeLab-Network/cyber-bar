@@ -1,14 +1,15 @@
 void SetupDispensers() {
   for (int i = 0; i < NUM_OF_DISPENSERS; i++) {
     pinMode(dispenserPin[i], OUTPUT);
+    closeDispenser(i);
   }
 }
 
 void openDispenser(int index) {
-  digitalWrite(dispenserPin[index], HIGH);
+  digitalWrite(dispenserPin[index], LOW);
 }
 void closeDispenser(int index) {
-  digitalWrite(dispenserPin[index], LOW);
+  digitalWrite(dispenserPin[index], HIGH);
 }
 
 
@@ -26,9 +27,9 @@ void testAllDispensers() {
   Serial.println("Start all dispensers test - once");
   for (int i = 0; i < NUM_OF_DISPENSERS; i++) {
     openDispenser(i);
-    delay(1000);
+    delay(300);
     closeDispenser(i);
-    delay(500);
+    delay(100);
   }
 }
 

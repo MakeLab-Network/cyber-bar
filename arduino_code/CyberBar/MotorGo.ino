@@ -4,7 +4,7 @@ void motorGo(uint8_t motor, int pwm)         //Function that controls the variab
   // ------------------- Normalize pwm and direction ------------------------
 
   if (debugLevel >= 5) {
-    //    if (motor == LEFT_MOTOR) debug(5, "powerLeft:", pwm); else debug(5, "powerRight:", pwm);
+//        if (motor == LEFT_MOTOR) debug(5, "powerLeft:", pwm); else debug(5, "powerRight:", pwm);
   }
 
   if (pwm > maxMotorPwm[motor]) pwm = maxMotorPwm[motor];                  // Bigger than max ? make it max
