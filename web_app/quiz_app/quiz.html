@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body>
+<body dir="rtl">
     <footer>
         <!-- Footer content here -->
     </footer>
@@ -24,16 +24,16 @@
         <aside>
             <ul>
                 <li>
-                    <span style="color: #6c6c6c" class="list-text">מחכה</span>
+                    <span class="list-text dim">מחכה למשתמש</span>
                 </li>
                 <li>
-                    <span class="list-text"> 🚩המבחן</span>
+                    <span class="list-text "> 🚩המבחן</span>
                 </li>
                 <li>
-                    <span style="color: #6c6c6c" lass="list-text">מחשב משקה</span>
+                    <span class="list-text dim">מחשב משקה</span>
                 </li>
                 <li>
-                    <span style="color: #6c6c6c" class="list-text">לשתות</span>
+                    <span class="list-text dim">לשתות</span>
                 </li>
             </ul>
         </aside>
@@ -46,19 +46,18 @@
                 <p class="question-text">{{ question['question'] }}</p>
             </div>
 
-            <form class="answers" method="POST" action="/handle_button_press/">
+            <form class="answers" method="POST" action="/quiz_question/">
                 <button class="answer btn red" name="selected_option"
-                    value="{{question['answers'][0]['answer']}}">{{question['answers'][0]['answer']}}</button>
+                    value="0">{{question['answers'][0]['answer']}}</button>
 
                 <button class="answer btn green" name="selected_option"
-                    value="{{question['answers'][1]['answer']}}">{{question['answers'][1]['answer']}}</button>
+                    value="1">{{question['answers'][1]['answer']}}</button>
 
                 <button class="answer btn blue" name="selected_option"
-                    value="{{question['answers'][2]['answer']}}">{{question['answers'][2]['answer']}}</button>
+                    value="2">{{question['answers'][2]['answer']}}</button>
 
                 <button class="answer btn yellow" name="selected_option"
-                    value="{{question['answers'][2]['answer']}}">{{question['answers'][2]['answer']}}</button>
-
+                    value="2">{{question['answers'][2]['answer']}}</button>
 
             </form>
         </main>

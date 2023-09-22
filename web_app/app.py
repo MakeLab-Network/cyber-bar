@@ -1,13 +1,16 @@
-from flask import Flask, render_template
+from glob import glob
+from tkinter.tix import Tree
+from typing import Dict
+from flask import Flask, render_template, request, redirect
 from db_access import QuestionsDb
 from gpt_api_tts import ask_gpt4
 
-from speak import speak
+import speak
 import webbrowser
 import os
 import time
+import random
 
-from gpt.prompts import ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT
 questions_file_path = r"db\questions\prod_questions.json"
 
 
@@ -15,39 +18,69 @@ app = Flask(__name__, template_folder='quiz_app')
 
 
 questions_db = QuestionsDb(questions_file_path)
-quiz_questions_gen = questions_db.get_random_questions(20)
-current_question = ""
+quiz_questions_gen = questions_db.get_random_questions(2)
+current_question = dict()
+chosen_drink = -1
+
+
+def init():
+    global questions_db
+    global quiz_question
+    global current_quest
+    global chosen_drink
+
+    questions_db = QuestionsDb(questions_file_path)
+    quiz_questions_gen = questions_db.get_random_questions(2)
+    current_question = dict()
+    chosen_drink = -1
+
+
+# @app.context_processor
+# def custom_template_context():
+# def prepare_drink():
+# global chosen_drink_drink
+# gpt_api_tts.choose_drink()
+# chosen_drink =
+
+# Include the custom function in the template context
+# return dict(print_hello=print_hello)
 
 
 @app.route('/')
 def index():
+    init()
     global current_question
     current_question = next(quiz_questions_gen)
-    speak(current_question["question"])
+    speak.say(current_question["question"])
     return render_template('quiz.html', question=current_question)
 
 
-@app.route('/handle_button_press/', methods=['POST'])
-def handle_button_press():
+@app.route('/quiz_question/', methods=['POST'])
+def quiz_question():
     try:
-        # todo: load some intermidiate screen
         global current_question
-        render_template('quiz_between_questions.html',
-                        question=current_question)
-        # response = ask_gpt4(ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT.format(current_question["question"], current_question["answers"])) # ask gpt for a response, and read it
-        print(ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT)
+        selected_option_index = int(request.form.get('selected_option'))
 
-        # ask gpt for a response, and read it
-        response = ask_gpt4(ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT)
-        print(response)
-        time.sleep(2)
-        # todo: show the answer
-        # todo: wait for response answer to finish
+        speak.say(random.choice(
+            current_question["answers"][selected_option_index]["responses"]), block=True)
+
         current_question = next(quiz_questions_gen)
-        speak(current_question["question"])
+        speak.say(current_question["question"])
         return render_template('quiz.html', question=current_question)
     except StopIteration:
-        return render_template('quiz_end.html')
+        return redirect("/calculate_drink", code=302)
+
+
+@app.route('/calculate_drink/', methods=['get'])
+def calculate_drink():
+    speak.minion_sound("minion_speak", block=False)
+    return render_template('calc_drink.html')
+
+
+@app.route('/drink_ready/', methods=['get'])
+def drink_ready():
+    speak.minion_sound("tada", block=True)
+    return render_template('calc_drink.html')
 
 
 if __name__ == '__main__':
