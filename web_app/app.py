@@ -1,4 +1,3 @@
-from tkinter.tix import Tree
 from typing import Dict
 from flask import Flask, render_template, request, redirect
 from db_access import QuestionsDb
@@ -10,15 +9,31 @@ import os
 import time
 import random
 import serial
+import threading
 # Define the serial port and baud rate
 
-arduino_serial = serial.Serial("COM4",9600)
+app = Flask(__name__, template_folder='quiz_app')
+arduino_msg = ""
+last_arduino_msg = ""
+
+
+def update_arduino():
+    global arduino_msg
+    ser = serial.Serial('COM50', 9600, timeout=1)
+    if not ser.isOpen():
+        ser.open()
+
+    try:
+        while True:
+            if last_arduino_msg != arduino_msg:
+                ser.write(arduino_msg.encode())
+                last_arduino_msg = arduino_msg
+            print(f"Sent: {arduino_msg}")
+    finally:
+        ser.close()
+
 
 questions_file_path = r"db\questions\prod_questions.json"
-
-
-app = Flask(__name__, template_folder='quiz_app')
-
 
 questions_db = QuestionsDb(questions_file_path)
 quiz_questions_gen = questions_db.get_random_questions(2)
@@ -61,6 +76,9 @@ def index():
 @app.route('/quiz_question/', methods=['POST'])
 def quiz_question():
     try:
+        global arduino_serial
+
+        # arduino_serial.open()
         global current_question
         selected_option_index = int(request.form.get('selected_option'))
 
@@ -86,12 +104,16 @@ def drink_ready():
     speak.minion_sound("tada", block=True)
     return render_template('calc_drink.html')
 
+
 def pour_drink(dispenser_index, amount):
-    # send command to arduino via serial
-    global arduino_serial
-    arduino_serial.write(f"t{dispenser_index} {amount}")
+    global arduino_msg
+    arduino_msg = f"t{dispenser_index} {amount}"
+    msg_file_path = "arduino_msg.txt"
+    with open(msg_file_path, 'w') as file:
+        file.write(arduino_msg)
+
 
 if __name__ == '__main__':
     if not os.environ.get("WERKZEUG_RUN_MAIN"):
         webbrowser.open_new('http://127.0.0.1:5000/')
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
