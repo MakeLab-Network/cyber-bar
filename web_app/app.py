@@ -10,9 +10,11 @@ import os
 import time
 import random
 import serial
+import json
 # Define the serial port and baud rate
+recipes_path = r"db\recipes.json"
 
-arduino_serial = serial.Serial("COM4",9600)
+# print(serial.)
 
 questions_file_path = r"db\questions\prod_questions.json"
 
@@ -77,19 +79,41 @@ def quiz_question():
 @app.route('/calculate_drink/', methods=['get'])
 def calculate_drink():
     speak.minion_sound("minion_speak", block=False)
+    drink_index = get_final_drink()
+    make_drink(drink_index)
     pour_drink(5, 500)
     return render_template('calc_drink.html')
 
+def get_final_drink():
+    Q_AND_A = ""
+    for question in asked_question:
+        Q_AND_A += "שאלה: " + question['question'] + r"\n" + "תשובה: " + question['answer']
+    final_prompt = FINAL_PROMPT.format(Q_AND_A)
+    ask_gpt4(final_prompt)
+    pass
 
-@app.route('/drink_ready/', methods=['get'])
+def make_drink(drink_index):
+    with open(recipes_path, 'rb') as f:
+        recipes = json.load(f)
+    recipe = recipes['cocktails'][drink_index]
+    for ing in recipe:
+        pour_drink(ing['id'], ing['amount'])
+
+
+app.route('/drink_ready/', methods=['get'])
+
+
 def drink_ready():
     speak.minion_sound("tada", block=True)
+    # send cmd
+    # wait for finish
     return render_template('calc_drink.html')
 
+
 def pour_drink(dispenser_index, amount):
-    # send command to arduino via serial
-    global arduino_serial
-    arduino_serial.write(f"t{dispenser_index} {amount}")
+    # send command to arduino via seria
+    pass
+
 
 if __name__ == '__main__':
     if not os.environ.get("WERKZEUG_RUN_MAIN"):
