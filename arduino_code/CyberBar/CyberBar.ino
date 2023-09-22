@@ -47,6 +47,9 @@ Adafruit_NeoPixel pixels(NUMPIXELS, CUP_LED_RING_PIN, NEO_GRB + NEO_KHZ800);
 #define PURPLE 1
 #define RED 2
 
+unsigned long send_pc_ka_time = 0; // dont ask
+int send_pc_ka_interval = 20;
+
 void setup() {
   Serial.begin(9600);
   Serial.println("\nbegin setup CyberBar Ver 1 (Geekcon 2023)");
@@ -89,8 +92,13 @@ void setup() {
   Serial.println("End of Setup");
 }
 
+
 void loop() {
   delay(2);
+  if(millies() > send_pc_ka_time) {
+     send_pc_ka_time = millis() + send_pc_ka_interval;
+     Serial.println("ka!");
+  }
   // for debug
   //  senseMagnet();
   //  if (millis() % 1000 > 500) {
@@ -107,7 +115,7 @@ void loop() {
   {
     Serial.println("loop 1");
   }
-  handleSerialCommands();
+//  handleSerialCommands();
   if (debugLevel >= 5)
   {
     Serial.println("loop 2");

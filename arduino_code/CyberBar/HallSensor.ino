@@ -10,7 +10,7 @@ bool senseMagnet() {
 //  Serial.println(hallEffectReading);
   bool magnet = hallEffectReading < hallEffectTreshold;
   if(magnet) {
-    ledRingOn(GREEN);
+    ledRingOn(PURPLE);
   }
   else {
     ledRingOff();

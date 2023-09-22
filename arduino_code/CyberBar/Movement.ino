@@ -19,6 +19,7 @@ void handleMovement() {
         {
           Serial.println("moving nothing 2");
         }
+        handleSerialCommands();
         break;
       }
     case MOVING_TO_DISPENSER: {

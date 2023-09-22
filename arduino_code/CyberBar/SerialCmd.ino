@@ -10,12 +10,12 @@ void handleSerialCommands() {
     }
     delay(5);
     byte sByte = Serial.read();
-//    Serial.println(sByte);
+    //    Serial.println(sByte);
     if (sByte == '?') {
       Serial.println("available commands:");
       Serial.println("  t5 500 - go to point 5 and pour 500 millis");
       Serial.println("  z - test all dispensers in order");
-//      Serial.println("  c2 - new current location 2");
+      //      Serial.println("  c2 - new current location 2");
     }
     if (sByte == 't') {
       int dst = Serial.parseInt();
@@ -23,10 +23,17 @@ void handleSerialCommands() {
       Serial.read(); // read 1 whitespace
       int duration = Serial.parseInt();
       if (dst >= NUM_OF_DISPENSERS) {
-        Serial.println("Error, target dispenser too big, ignoring");
-        Serial.println("$err");
-//        Serial.println("$ready");
-        ledRingOn(RED);
+        if (dst == 20) {
+          // finished!!
+          ledRingOn(GREEN);
+        }
+        else {
+          Serial.println("Error, target dispenser too big, ignoring");
+          Serial.println("$err");
+          //        Serial.println("$ready");
+          //        ledRingOn(RED);
+        }
+
       }
       else {
         commandGoAndPourDrink(dst, duration);
