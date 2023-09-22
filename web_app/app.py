@@ -8,7 +8,7 @@ import os
 import time
 
 from gpt.prompts import ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT
-questions_file_path = r"db\questions\questions_hebrew.json"
+questions_file_path = r"db\questions\prod_questions.json"
 
 
 app = Flask(__name__, template_folder='quiz_app')
@@ -17,6 +17,7 @@ app = Flask(__name__, template_folder='quiz_app')
 questions_db = QuestionsDb(questions_file_path)
 quiz_questions_gen = questions_db.get_random_questions(20)
 current_question = ""
+
 
 @app.route('/')
 def index():
@@ -31,10 +32,13 @@ def handle_button_press():
     try:
         # todo: load some intermidiate screen
         global current_question
-        render_template('quiz_between_questions.html', question=current_question)
+        render_template('quiz_between_questions.html',
+                        question=current_question)
         # response = ask_gpt4(ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT.format(current_question["question"], current_question["answers"])) # ask gpt for a response, and read it
         print(ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT)
-        response = ask_gpt4(ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT) # ask gpt for a response, and read it
+
+        # ask gpt for a response, and read it
+        response = ask_gpt4(ASK_GPT_FOR_RESPONSE_ON_1_ANSWER_FORMAT)
         print(response)
         time.sleep(2)
         # todo: show the answer
