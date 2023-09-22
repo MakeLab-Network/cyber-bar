@@ -10,7 +10,7 @@
     <title>cy-bar</title>
     <!-- Include jQuery library -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <meta http-equiv="refresh" content="7; url='quiz'" />
+    <meta http-equiv="refresh" content="7; url='begin'" />
 </head>
 
 <body dir="rtl">
@@ -25,10 +25,10 @@
         <aside>
             <ul>
                 <li>
-                    <span class="list-text dim">מחכה למשתמש</span>
+                    <span class="list-text dim">מכה למשתמש �</span>
                 </li>
                 <li>
-                    <span class="list-text "> 🚩המבחן</span>
+                    <span class="list-text "> המבחן</span>
                 </li>
                 <li>
                     <span class="list-text dim">מחשב משקה</span>
@@ -43,22 +43,18 @@
         </nav>
         <main>
             <div class="question">
-                <h2>Question {{ question['question_number'] + 1 }}:</h2>
-                <p class="question-text">{{ question['question'] }}</p>
+                <h2>waiting</h2>
+                <p class="question-text">בחיאת תלחצו על כפתור כדי להתחיל</p>
             </div>
 
             <form class="answers" action="javascript:void(0);">
-                <button class="answer btn red" name="selected_option"
-                    value="0">{{question['answers'][0]['answer']}}</button>
+                <button class="answer btn red" name="selected_option" value="0">תלחץ עליי</button>
 
-                <button class="answer btn green" name="selected_option"
-                    value="1">{{question['answers'][1]['answer']}}</button>
+                <button class="answer btn green" name="selected_option" value="1">נווו אני צמאאאא</button>
 
-                <button class="answer btn blue" name="selected_option"
-                    value="2">{{question['answers'][2]['answer']}}</button>
+                <button class="answer btn blue" name="selected_option" value="2">אני רוצה לשתות!</button>
 
-                <button class="answer btn yellow" name="selected_option"
-                    value="3">{{question['answers'][3]['answer']}}</button>
+                <button class="answer btn yellow" name="selected_option" value="3">תלחץ כבר!</button>
             </form>
         </main>
     </div>
