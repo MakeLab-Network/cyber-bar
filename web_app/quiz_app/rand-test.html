@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway+Dots&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>cy-bar</title>
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body dir="rtl">
+    <footer>
+        <!-- Footer content here -->
+    </footer>
+    <div class="bg-image"></div>
+    <div class="container">
+        <!-- <header>
+            <h1>CYBAR</h1>
+        </header> -->
+        <aside>
+            <ul>
+                <li>
+                    <!-- <span class="list-text dim">מחכה למשתמש</span> -->
+                </li>
+
+            </ul>
+        </aside>
+        <nav>
+            <!-- Navigation menu here -->
+        </nav>
+        <main>
+            <div class="question">
+                <h2>...</h2>
+                <p class="question-text">click to get a random drink</p>
+            </div>
+
+            <form class="answers" method="POST" action="/random/">
+                <button class="answer btn red" name="selected_option" value="0">click to get a random drink!!!</button>
+
+
+            </form>
+        </main>
+    </div>
+</body>
+
+</html>

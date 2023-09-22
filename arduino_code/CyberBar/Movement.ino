@@ -74,6 +74,7 @@ void handleMovement() {
           ledRingOff();
           delay(1);
           Serial.println("end pour");
+          Serial.println("$reached");
           delay(1);
         }
         if (debugLevel >= 3)

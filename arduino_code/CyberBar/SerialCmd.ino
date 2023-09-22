@@ -25,7 +25,7 @@ void handleSerialCommands() {
       if (dst >= NUM_OF_DISPENSERS) {
         Serial.println("Error, target dispenser too big, ignoring");
         Serial.println("$err");
-        Serial.println("$ready");
+//        Serial.println("$ready");
         ledRingOn(RED);
       }
       else {

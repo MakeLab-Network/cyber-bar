@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway+Dots&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>cy-bar</title>
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta http-equiv="refresh" content="7; url='drink_ready'" />
+
+</head>
+
+<body dir="rtl">
+    <footer>
+        <!-- Footer content here -->
+    </footer>
+    <div class="bg-image"></div>
+    <div class="container">
+        <!-- <header>
+            <h1>CYBAR</h1>
+        </header> -->
+        <aside>
+            <ul>
+                <li>
+                    <span style="color: #6c6c6c" class="list-text">מחכה</span>
+                </li>
+                <li>
+                    <span class="list-text"> המבחן</span>
+                </li>
+                <li>
+                    <span style="color: #6c6c6c" lass="list-text">מחשב משקה �</span>
+                </li>
+                <li>
+                    <span style="color: #6c6c6c" class="list-text">לשתות</span>
+                </li>
+            </ul>
+        </aside>
+        <nav>
+            <!-- Navigation menu here -->
+        </nav>
+        <main>
+            <div class="question">
+                <h2>your drink is...</h2>
+                <p class="question-text">{{ drink_ing}}</p>
+
+            </div>
+
+            <img class="minion-img" alt="">
+        </main>
+    </div>
+</body>
+
+</html>
