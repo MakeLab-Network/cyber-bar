@@ -45,6 +45,18 @@ void moveMotorsToTargetDispenser() {
     //    Serial.println("go down");
     cart_direction = -1;
   }
+  if(limitSwitchReached() && cart_direction == -1) {
+    // stop!!!!!
+    leftMotor(0);
+    Serial.println("error, limit switch reached");
+    calibrateRail();
+  }
+//  if(rightLimitSwitchReached() && cart_direction == 1) {
+//    // stop!!!!!
+//    leftMotor(0);
+//    Serial.println("error, limit switch reached");
+//    calibrateRail();
+//  }
 }
 
 void calculateCurrentLocation() {
