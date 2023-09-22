@@ -6,3 +6,4 @@ flask
 webbrowser
 flask
 playsound==1.2.2
+serial

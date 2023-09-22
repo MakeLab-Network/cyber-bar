@@ -1,4 +1,3 @@
-from glob import glob
 from tkinter.tix import Tree
 from typing import Dict
 from flask import Flask, render_template, request, redirect
@@ -10,6 +9,10 @@ import webbrowser
 import os
 import time
 import random
+import serial
+# Define the serial port and baud rate
+
+arduino_serial = serial.Serial("COM4",9600)
 
 questions_file_path = r"db\questions\prod_questions.json"
 
@@ -74,6 +77,7 @@ def quiz_question():
 @app.route('/calculate_drink/', methods=['get'])
 def calculate_drink():
     speak.minion_sound("minion_speak", block=False)
+    pour_drink(5, 500)
     return render_template('calc_drink.html')
 
 
@@ -82,9 +86,10 @@ def drink_ready():
     speak.minion_sound("tada", block=True)
     return render_template('calc_drink.html')
 
-def pourDrink(dispenser_index):
+def pour_drink(dispenser_index, amount):
     # send command to arduino via serial
-    pass
+    global arduino_serial
+    arduino_serial.write(f"t{dispenser_index} {amount}")
 
 if __name__ == '__main__':
     if not os.environ.get("WERKZEUG_RUN_MAIN"):
