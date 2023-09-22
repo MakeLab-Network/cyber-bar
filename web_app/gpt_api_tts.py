@@ -2,21 +2,23 @@ import openai
 import os
 import time
 from gtts import gTTS
-#from speak import speak
+# from speak import speak
 from pygame import mixer
 
-openai.api_key = os.environ.get("openai_key")
+# openai.api_key = os.environ.get("openai_key")
 
 
 all_chunks = ""
 
 mixer.init()
 openai.api_key = os.environ.get("openai_key")
+print(f"key: {os.environ.get('openai_key')}")
+
 
 def play_tts(text, end_line=True):
     try:
         text = text.rstrip().lstrip()
-        while(mixer.music.get_busy()):
+        while (mixer.music.get_busy()):
             # print("waiting for last answer...")
             pass
         mixer.music.unload()
@@ -31,6 +33,7 @@ def play_tts(text, end_line=True):
         mixer.music.play()
     except:
         pass
+
 
 def ask_gpt(prompt, model="gpt-3.5-turbo"):
     # print("debug, ask gpt")
