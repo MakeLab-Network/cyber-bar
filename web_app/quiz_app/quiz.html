@@ -13,12 +13,33 @@
 </head>
 
 <body>
-
+    <footer>
+        <!-- Footer content here -->
+    </footer>
     <div class="bg-image"></div>
     <div class="container">
-        <header>
+        <!-- <header>
             <h1>CYBAR</h1>
-        </header>
+        </header> -->
+        <aside>
+            <ul>
+                <li>
+                    <span style="color: #6c6c6c" class="list-text">מחכה</span>
+                </li>
+                <li>
+                    <span class="list-text"> 🚩המבחן</span>
+                </li>
+                <li>
+                    <span style="color: #6c6c6c" lass="list-text">מחשב משקה</span>
+                </li>
+                <li>
+                    <span style="color: #6c6c6c" class="list-text">לשתות</span>
+                </li>
+            </ul>
+        </aside>
+        <nav>
+            <!-- Navigation menu here -->
+        </nav>
         <main>
             <div class="question">
                 <h2>Question {{ question['question_number'] }}:</h2>
@@ -26,11 +47,19 @@
             </div>
 
             <form class="answers" method="POST" action="/handle_button_press/">
-                {% for option in question['answers'] %}
-                <div class="answer">
-                    <button class="btn" name="selected_option" value="{{ option }}">{{ option }}</button>
-                </div>
-                {% endfor %}
+                <button class="answer btn red" name="selected_option"
+                    value="{{question['answers'][0]}}">{{question['answers'][0]}}</button>
+
+                <button class="answer btn green" name="selected_option"
+                    value="{{question['answers'][1]}}">{{question['answers'][1]}}</button>
+
+                <button class="answer btn blue" name="selected_option"
+                    value="{{question['answers'][2]}}">{{question['answers'][2]}}</button>
+
+                <button class="answer btn yellow" name="selected_option"
+                    value="{{question['answers'][3]}}">{{question['answers'][3]}}</button>
+
+
             </form>
         </main>
     </div>
