@@ -49,9 +49,9 @@ def main():
             print(f"from: {from_arduino}")
             if from_arduino:
                 if from_arduino[0] == "@":
-                    write_file_content(buttons_file_path, from_arduino)
+                    write_file_content(buttons_file_path, from_arduino[1])
 
-            time.sleep(1.0)  # sleep for 1 second before checking again
+            # time.sleep(0.2)  # sleep for 1 second before checking again
 
     except KeyboardInterrupt:
         print("Script stopped by user.")

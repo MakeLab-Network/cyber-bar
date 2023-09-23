@@ -51,7 +51,8 @@ def ask_gpt(prompt, model="gpt-3.5-turbo"):
         all_chunks += response_text
         if '\n' in chunks or '.' in chunks or i > 100:
             print(chunks)
-            play_tts(chunks, end_line=('\n' in chunks))
+            if i >= 2:
+                play_tts(chunks, end_line=('\n' in chunks))
             # speak(chunks)
             chunks = ""
             i = 0

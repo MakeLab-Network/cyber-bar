@@ -173,7 +173,7 @@ def drink_ready_mid():
     with open(recipes_path, 'rb') as f:
         recipes = json.load(f)
     # print(recipes['cockt  ails'])
-    recipe = recipes['cocktails'][drink_index - 1]
+    recipe = recipes['cocktails'][drink_index]
     text = ""
     for ing in recipe['ingredients']:
         text += ing['name'] + ", "
@@ -183,12 +183,9 @@ def drink_ready_mid():
 
 def parse_final_response(response):
     print("\n\nresponse start " + response[:5])
-    index = response.split(r'\n')[0].split('.')[1].lstrip()
+    index = response.split('\n', )[0].split('.')[1].lstrip()
     print(f"index : {index}")
-    if (index[1].isdigit()):
-        return int(index[0] + index[1])
-    else:
-        return int(index[0])
+    return int(index) - 1
 
 
 def get_final_drink():
@@ -197,7 +194,7 @@ def get_final_drink():
     for question in asked_questions:
         FULL_Q_AND_A += USER_Q_AND_A.format(
             question['question'], question['answer'])
-    final_prompt = FINAL_PROMPT.format(FULL_Q_AND_A)
+    final_prompt = FINAL_PROMPT.format(FULL_Q_AND_A, random.randint(1, 20))
     response = ask_gpt4(final_prompt)
     return parse_final_response(response)
 
@@ -206,7 +203,7 @@ def make_drink(drink_index):
     with open(recipes_path, 'rb') as f:
         recipes = json.load(f)
     # print(recipes['cockt  ails'])
-    recipe = recipes['cocktails'][drink_index - 1]
+    recipe = recipes['cocktails'][drink_index]
     last_pos = 5
 
     for ing in recipe['ingredients']:

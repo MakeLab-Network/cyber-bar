@@ -48,7 +48,7 @@ Adafruit_NeoPixel pixels(NUMPIXELS, CUP_LED_RING_PIN, NEO_GRB + NEO_KHZ800);
 #define RED 2
 
 unsigned long send_pc_ka_time = 0; // dont ask
-int send_pc_ka_interval = 20;
+int send_pc_ka_interval = 80;
 
 void setup() {
   Serial.begin(9600);
@@ -56,6 +56,7 @@ void setup() {
   setupMotors();
   Serial.setTimeout(1000);
   setupLeds();
+  setupButtons();
   setupHallSensor();
   setupLimitSwitch();
   // hard code stop // remove later
@@ -95,7 +96,7 @@ void setup() {
 
 void loop() {
   delay(2);
-  if(millies() > send_pc_ka_time) {
+  if(millis() > send_pc_ka_time) {
      send_pc_ka_time = millis() + send_pc_ka_interval;
      Serial.println("ka!");
   }

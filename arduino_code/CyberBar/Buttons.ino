@@ -12,10 +12,11 @@ void setupButtons() {
 }
 
 void checkButtons() {
+//  Serial.println(digitalRead(RED_BUTTON_PIN));
   if (digitalRead(RED_BUTTON_PIN) == HIGH) {
     if (red_button_is_pressed) { // if was pressed but now released, full press
       // press red
-      Serial.println("@1");
+      Serial.println("@0");
       delay(20);
       //      Serial.println("Red was pressed");
     }
@@ -40,7 +41,7 @@ void checkButtons() {
 
   if (digitalRead(GREEN_BUTTON_PIN) == HIGH) {
     if (green_button_is_pressed) { // if was pressed but now released, full press
-      Serial.println("@3");
+      Serial.println("@1");
       delay(20);
     }
     green_button_is_pressed = false;
@@ -48,11 +49,10 @@ void checkButtons() {
   else {
     green_button_is_pressed = true;
   }
-}
 
-if (digitalRead(YELLOW_BUTTON_PIN) == HIGH) {
+  if (digitalRead(YELLOW_BUTTON_PIN) == HIGH) {
     if (yellow_button_is_pressed) { // if was pressed but now released, full press
-      Serial.println("@4");
+      Serial.println("@3");
       delay(20);
     }
     yellow_button_is_pressed = false;
@@ -60,3 +60,4 @@ if (digitalRead(YELLOW_BUTTON_PIN) == HIGH) {
   else {
     yellow_button_is_pressed = true;
   }
+}
