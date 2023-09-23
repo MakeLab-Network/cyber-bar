@@ -181,11 +181,11 @@ def drink_ready_mid():
     return render_template('disp.html', drink_ing=text[:-1], drink_name=recipe['name'])
 
 
-def parse_final_response(response):
-    print("\n\nresponse start " + response[:5])
-    index = response.split('\n', )[0].split('.')[1].lstrip()
-    print(f"index : {index}")
-    return int(index) - 1
+# def parse_final_response(response):
+#     print("\n\nresponse start " + response[:5])
+#     index = response.split('\n', )[0].split('.')[1].lstrip()
+#     print(f"index : {index}")
+#     return int(index) - 1
 
 
 def get_final_drink():
@@ -194,9 +194,16 @@ def get_final_drink():
     for question in asked_questions:
         FULL_Q_AND_A += USER_Q_AND_A.format(
             question['question'], question['answer'])
-    final_prompt = FINAL_PROMPT.format(FULL_Q_AND_A, random.randint(1, 20))
+    with open(recipes_path, 'rb') as f:
+        recipes = json.load(f)
+    drink_index = random.randint(1, 20)
+    recipe = recipes['cocktails'][drink_index]
+    print(f"randomly chosen drink: {drink_index}\n {recipe}")
+    final_prompt = FINAL_PROMPT.format(recipe,
+                                       FULL_Q_AND_A, )
     response = ask_gpt4(final_prompt)
-    return parse_final_response(response)
+    return drink_index
+    # return parse_final_response(response)
 
 
 def make_drink(drink_index):

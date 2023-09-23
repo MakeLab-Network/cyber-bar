@@ -21,7 +21,7 @@ def say(text, block=False):
         tts.save(filename)
         sound = AudioSegment.from_file(filename, format="mp3")
         # Speed up by 1.5 times (you can adjust the value to your liking)
-        fast_sound = speed_change(sound, 1.5)
+        fast_sound = speed_change(sound, 1.4)
         fast_sound.export(filename_fast, format="mp3")
         playsound.playsound(filename_fast, block=block)
         os.remove(filename)
