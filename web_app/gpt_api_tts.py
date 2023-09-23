@@ -4,8 +4,17 @@ import time
 from gtts import gTTS
 # from speak import speak
 from pygame import mixer
-
+from pydub import AudioSegment
 # openai.api_key = os.environ.get("openai_key")
+# from speak import speed_change
+
+
+def speed_change(sound, speed=1.5):
+    # Manually override the frame_rate. This will also change the pitch (unless `sound._spawn` is used).
+    sound_with_altered_frame_rate = sound._spawn(sound.raw_data, overrides={
+        "frame_rate": int(sound.frame_rate * speed)
+    }).set_frame_rate(sound.frame_rate)
+    return sound_with_altered_frame_rate
 
 
 all_chunks = ""
@@ -24,15 +33,20 @@ def play_tts(text, end_line=True):
         mixer.music.unload()
         try:
             os.remove("tts.mp3")
+            os.remove("tts_fast.mp3")
         except:
             pass
         tts = gTTS(text, lang='iw')
         tts.save("tts.mp3")
-        mixer.music.load("tts.mp3")
+        sound = AudioSegment.from_file("tts.mp3", format="mp3")
+        # Speed up by 1.5 times (you can adjust the value to your liking)
+        fast_sound = speed_change(sound, 1.4)
+        fast_sound.export("tts_fast.mp3", format="mp3")
+        mixer.music.load("tts_fast.mp3")
         print(text, end=('\n' if end_line else ' '))
         mixer.music.play()
-    except:
-        pass
+    except Exception as e:
+        print(e)
 
 
 def ask_gpt(prompt, model="gpt-3.5-turbo"):
