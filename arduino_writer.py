@@ -45,9 +45,10 @@ def main():
                 last_timestamp = current_timestamp
                 print("File changed! Content sent.")
 
-            from_arduino = ser.readline().decode()
-            print(f"from: {from_arduino}")
-            if from_arduino:
+            if (ser.in_waiting > 0):
+                # read the bytes and convert from binary array to ASCII
+                from_arduino = ser.readline().decode()
+                data_str = ser.read(ser.in_waiting).decode('ascii')
                 if from_arduino[0] == "@":
                     write_file_content(buttons_file_path, from_arduino[1])
 
