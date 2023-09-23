@@ -1,3 +1,4 @@
+import threading
 import openai
 import os
 import time
@@ -47,6 +48,11 @@ def play_tts(text, end_line=True):
         mixer.music.play()
     except Exception as e:
         print(e)
+
+
+def run_ask_gpt(prompt):
+    x = threading.Thread(target=ask_gpt4, args=(prompt,), daemon=True)
+    x.start()
 
 
 def ask_gpt(prompt, model="gpt-3.5-turbo"):

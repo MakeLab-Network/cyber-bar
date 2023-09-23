@@ -81,7 +81,7 @@ void handleMovement() {
         }
         if (debugLevel >= 3)
         {
-          Serial.println("pouring");
+//          Serial.println("pouring");
           delay(1);
         }
         break;

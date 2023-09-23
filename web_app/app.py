@@ -2,7 +2,7 @@ from gpt.prompts import FINAL_PROMPT, USER_Q_AND_A
 from typing import Dict
 from flask import Flask, render_template, request, redirect, url_for
 from db_access import QuestionsDb
-from gpt_api_tts import ask_gpt4, ask_gpt
+from gpt_api_tts import ask_gpt4, run_ask_gpt
 
 import speak
 import webbrowser
@@ -106,7 +106,8 @@ def quiz_button_check():
     print('waiting for button')
 
     selected_option_index = int(read_buttons())
-
+    speak.say(current_question["answers"]
+              [selected_option_index]["answer"], block=True)
     response = random.choice(
         current_question["answers"][selected_option_index]["responses"])
     speak.say(response, block=True)
@@ -141,7 +142,8 @@ def proc():
 
 def making_the_drink():
     global drink_index
-    drink_index = get_final_drink()
+    drink_index = random.randint(1, 19)
+    get_final_drink(drink_index)
     print(drink_index)
 
     # return dict(making_the_drink=making_the_drink)
@@ -188,7 +190,7 @@ def drink_ready_mid():
 #     return int(index) - 1
 
 
-def get_final_drink():
+def get_final_drink(drink_index):
     FULL_Q_AND_A = ""
     global asked_questions
     for question in asked_questions:
@@ -196,12 +198,13 @@ def get_final_drink():
             question['question'], question['answer'])
     with open(recipes_path, 'rb') as f:
         recipes = json.load(f)
-    drink_index = random.randint(1, 20)
+
     recipe = recipes['cocktails'][drink_index]
     print(f"randomly chosen drink: {drink_index}\n {recipe}")
     final_prompt = FINAL_PROMPT.format(recipe,
                                        FULL_Q_AND_A, )
-    response = ask_gpt4(final_prompt)
+    response = run_ask_gpt(final_prompt)
+
     return drink_index
     # return parse_final_response(response)
 
@@ -218,9 +221,10 @@ def make_drink(drink_index):
         pour_drink(pos, int(ing['amount']) * 1000)
         distance_to_pos = abs(last_pos - pos)
         if (pos < 14):
-            time.sleep((1*distance_to_pos) + 3)
+            time.sleep((1*distance_to_pos) + 5)
         last_pos = pos
     pour_drink(20, 100)  # amazing stuff
+    time.sleep(10)
 
 
 @app.route('/drink_ready_disp/drink_ready/', methods=['get'])
